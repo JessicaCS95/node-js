@@ -8,3 +8,4 @@ console.log(executePessoas.pessoas, executePessoas.idade)*/
 //Desestruturação
 const {pessoas, idade} = require ('./pessoas');
 console.log(pessoas, idade);
+
