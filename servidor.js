@@ -1,18 +1,40 @@
 const http = require('http');
 const fs = require('fs');
  
-const Server = http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
 console.log(req.url, req.method);
  
-res.setHeader('Tipo-Conteudo', "texto/html");
+res.setHeader('Tipo-Conteudo', 'texto/html');
 
-fs.readFile('./views/index.html', (err, data) =>{
+let caminho = './views/';
+
+switch(req.url){
+    case '/':
+        caminho += 'index.html';
+        res.statusCode = 200;
+        break;
+    case '/sobre':
+        caminho += 'sobre.html';
+        res.statusCode = 200;
+        break;
+    case '/nossahistoria':
+            res.statusCode = 301;
+            res.setHeader('Location', '/sobre');
+            break;
+        
+    default:
+        caminho += '404.html';
+        res.statusCode = 404;
+        break;
+    
+}
+
+fs.readFile(caminho, (err, data) =>{
     if(err){
         console.log(err);
         res.end();
     } else{
-        res.write(data);
-        res.end();
+        res.end(data);
     }
 });
 
@@ -26,4 +48,9 @@ fs.readFile('./views/index.html', (err, data) =>{
 //res.end();
  
 });
+
+
+server.listen(3000, 'localhost', () => {
+    console.log("Ouvindo requisição na porta 3000");
+    });
  
