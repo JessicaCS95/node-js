@@ -1,10 +1,16 @@
 const http = require('http');
 const fs = require('fs');
+const _ = require('lodash');
  
 const server = http.createServer((req, res) => {
-console.log(req.url, req.method);
+//console.log(req.url, req.method);
+
+//Testando o pacote Lodash
+const numero = _.random(0, 50);
+console.log(numero);
+
  
-res.setHeader('Tipo-Conteudo', 'texto/html');
+//res.setHeader('Tipo-Conteudo', 'texto/html');
 
 let caminho = './views/';
 
